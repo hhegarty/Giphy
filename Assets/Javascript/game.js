@@ -39,6 +39,10 @@ $("#buttonArea").on("click", ".btn", function () {
             p.text(results[i].rating);
             var p = $("<p>").text("Rating: " + results[i].rating);
 
+            // Add color style with CSS to create colored borders.....
+
+            var topicImage = $("<img>").addClass("pinkBorder");
+
             // Add states of animate/still and which to be toggled.....
 
             topicImage.attr("src", results[i].images.fixed_height_still.url);
@@ -58,5 +62,29 @@ $("#buttonArea").on("click", ".btn", function () {
 
 // When user click on still GIPHY image have it animate. When they click again make it stop.....
 
-$("#gifArea").on("click", ".gif", function(event){
+$("#gifArea").on("click", ".gif", function (event) {
     event.preventDefault();
+
+    // Get current state of clicked gif.....
+
+    var state = $(this).attr("data-animate"));
+
+// Toggle between still and animate.....
+
+if (state === "still" {
+    $(this).attr("src", $(this).attr("data-animate"));
+    $(this).attr("data-state", "animate");
+} else {
+    $(this).attr("src", $(this).attr("data-still"));
+    $(this).attr("data-state", "still");
+}
+
+
+$(".submit").on("click", function(event){
+    event.preventDefault();
+    console.log("submit");
+    $(document).on("click", ".gif", changeState);
+});
+
+
+buttonGenerator();
