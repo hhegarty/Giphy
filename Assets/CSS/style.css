@@ -1,0 +1,67 @@
+html{
+    position: relative;
+    min-height: 100%;
+}
+
+body{
+    background-color:whitesmoke;
+    margin-bottom: 60px;
+}
+
+#wrap{
+    background-color: black;
+    color: 646464;
+}
+
+#header{
+    background-color: blueviolet;
+    height: 70px;
+}
+
+title{
+    color: fffff;
+    text-align: center;
+    padding-top: 16px;
+}
+
+#buttonArea{
+    margin-top: 10px;
+    
+}
+
+.btn{
+    margin: 3px;
+   
+}
+
+#gifArea{
+    margin-top: 20px;
+}
+
+.pinkBorder{
+    border-radius: 5px;
+    border: 2px solid palevioletred;
+}
+
+.submit{
+    background-color: black;
+    color: blanchedalmond;
+    border: 1px solid purple;
+}
+
+.footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    line-height: 60px;
+    text-align: center;
+    background-color: blue;
+}
+
+.credits{
+    font-size: .8em;
+}
+
+.clear{
+    clear:both;
+}
