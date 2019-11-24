@@ -1,90 +1,73 @@
-// Witches/Spooky women for topics.....
+//.....Create array of spooky movies......
 
-var topics = ["Sarah Sanderson", "Mary Sanderson", "Winifred Sanderson", "Prue Halliwell", "Piper Halliwell", "Phoebe Halliwell", "Paige Matthews", "Glinda", "Fiona Goode", "Marie Laveau"];
-var button;
+$(document).ready(function () {
+    var movies = ["Hocus Pocus", "Practical Magic", "The Witches of Eastwick", "Little Witches", "Bell, Book and Candle", "The Witch"," Season of the Witch","Suspiria","The Witches","The Craft"];
 
-// Create a function to create buttons from array.....
+    //.....Create buttones for movies array.....
 
-var buttonGenerator = function () {
-    $("#buttonArea").empty();
+    function renderButtons() {
+		$("#movie-buttons").empty();
+		for (i = 0; i < movies.length; i++) {
+			$("#movie-buttons").append("<button class='btn btn-success' data-movie='" + movies[i] + "'>" + movies[i] + "</button>");
+		}
+	}
 
-    // Loop through array and create buttons.....
+	renderButtons();
 
-    for (i = 0; i < topics.length; i++) {
-        button = $("<button type=" + "button" + ">" + topics[i] + "</button>").addClass("btn btn-warning").attr("data", topics[i]);
-        $("#buttonArea").append(button);
-    };
-}
-// User clicks generated buton, generate 10 non animated gif images and place them on page.....
-
-$("#buttonArea").on("click", ".btn", function () {
-    var thing = $(this).attr("data");
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + thing + "&api_key=FTz19Fc6q1VN9DAZImwNwKlhMUb0CtXq&limit=10";
-
-    // Call on aJax.....
-
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).done(function (response) {
-        console.log(response);
-
-        var results = response.data;
-        for (var i = 0; i < results.length; i++) {
-            var topicDiv = $("<div>");
-
-            // Display rating under every gif.....
-
-            var p = $("<p>");
-            p.text(results[i].rating);
-            var p = $("<p>").text("Rating: " + results[i].rating);
-
-            // Add color style with CSS to create colored borders.....
-
-            var topicImage = $("<img>").addClass("pinkBorder");
-
-            // Add states of animate/still and which to be toggled.....
-
-            topicImage.attr("src", results[i].images.fixed_height_still.url);
-            topicImage.attr("data-still", results[i].images.fixed_height_still.url);
-            topicImage.attr("data-animate", results[i].images.fixed_height.url)
-            topicImage.attr("data-state", "still")
-            topicImage.addClass("gif");
-
-            topicDiv.append(topicImage);
-            // Have rating appear below gif.....
-
-            topicDiv.append(p);
-            $("#gifArea").prepend(topicDiv);
-        }
-    })
-})
-
-// When user click on still GIPHY image have it animate. When they click again make it stop.....
-
-$("#gifArea").on("click", ".gif", function (event) {
-    event.preventDefault();
-
-    // Get current state of clicked gif.....
-
-    var state = $(this).attr("data-animate"));
-
-// Toggle between still and animate.....
-
-if (state === "still" {
-    $(this).attr("src", $(this).attr("data-animate"));
-    $(this).attr("data-state", "animate");
-} else {
-    $(this).attr("src", $(this).attr("data-still"));
-    $(this).attr("data-state", "still");
-}
+	//.....Create button for movie entered.....
+	$("#add-movie").on("click", function () {
+		event.preventDefault();
+		var movie = $("#movie-input").val().trim();
+		movies.push(movie);
+		renderButtons();
+		return;
+	});
 
 
-$(".submit").on("click", function(event){
-    event.preventDefault();
-    console.log("submit");
-    $(document).on("click", ".gif", changeState);
+	// Getting gifs from api... onto html
+	$("button").on("click", function () {
+		var movie = $(this).attr("data-movie");
+		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+			movie + "&api_key=dc6zaTOxFJmzC&limit=10"
+
+		$.ajax({
+			url: queryURL,
+			method: "GET"
+		}).done(function (response) {
+			var results = response.data;
+			$("#movies").empty();
+			for (var i = 0; i < results.length; i++) {
+				var movieDiv = $("<div>");
+				var p = $("<p>").text("Rating: " + results[i].rating);
+				var movieImg = $("<img>");
+
+				movieImg.attr("src", results[i].images.original_still.url);
+				movieImg.attr("data-still", results[i].images.original_still.url);
+				movieImg.attr("data-animate", results[i].images.original.url);
+				movieImg.attr("data-state", "still");
+				movieImg.attr("class", "gif");
+				movieDiv.append(p);
+				movieDiv.append(movieImg);
+				$("#movies").append(movieDiv);
+			}
+		});
+	});
+// .....Make sure they change from still to animate when clicked and vice versa.....
+	function changeState(){
+		var state = $(this).attr("data-state");
+		var animateImage = $(this).attr("data-animate");
+		var stillImage = $(this).attr("data-still");
+
+		if (state == "still") {
+			$(this).attr("src", animateImage);
+			$(this).attr("data-state", "animate");
+		}
+
+		else if (state == "animate") {
+			$(this).attr("src", stillImage);
+			$(this).attr("data-state", "still");
+		}
+	}
+	$(document).on("click", ".gif", changeState);
+
 });
-
-
-buttonGenerator();

@@ -1,67 +1,36 @@
-html{
-    position: relative;
-    min-height: 100%;
+.jumbotron{
+    background-color:black;
+    background-image: url("../Images/witch.jpg");
+	color: #ffffff;
 }
 
 body{
-    background-color:whitesmoke;
-    margin-bottom: 60px;
+    background-color:black;
 }
 
-#wrap{
-    background-color: black;
-    color: 646464;
-}
-
-#header{
-    background-color: blueviolet;
-    height: 70px;
-}
-
-title{
-    color: fffff;
-    text-align: center;
-    padding-top: 16px;
-}
-
-#buttonArea{
-    margin-top: 10px;
-    
+h1{
+    text-align: left;
 }
 
 .btn{
-    margin: 3px;
-   
+    background-color: blueviolet;
+    color:whitesmoke;
 }
 
-#gifArea{
-    margin-top: 20px;
-}
-
-.pinkBorder{
-    border-radius: 5px;
-    border: 2px solid palevioletred;
-}
-
-.submit{
+#add-movie{
     background-color: black;
-    color: blanchedalmond;
-    border: 1px solid purple;
+    color:whitesmoke;
 }
 
-.footer{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    line-height: 60px;
-    text-align: center;
-    background-color: blue;
+label{
+    color: whitesmoke;
 }
 
-.credits{
-    font-size: .8em;
+
+#movies{
+	padding: 3%;
 }
 
-.clear{
-    clear:both;
+div{
+	margin-bottom: 10%;
 }
